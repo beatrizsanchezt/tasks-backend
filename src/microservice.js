@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const expressWinston = require('express-winston');
+const cors = require('cors');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
 function microservice({ apiV1Router, logger }) {
@@ -9,6 +10,7 @@ function microservice({ apiV1Router, logger }) {
     const app = express();
 
     return new Promise((resolve) => {
+      app.use(cors());
       app.use(bodyParser.json());
       app.use(expressWinston.logger({ winstonInstance: logger }));
       app.use(apiV1Router);

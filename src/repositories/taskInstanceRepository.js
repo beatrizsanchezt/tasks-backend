@@ -1,8 +1,8 @@
-// const sql = require('mssql');
+const sql = require('mssql');
 
-function taskInstanceRepository({ sql }) {
+function taskInstanceRepository({ dataClient }) {
   async function getTasks() {
-    const pool = await sql.getConnection();
+    const pool = await dataClient.getConnection();
     const request = await pool.request();
     request.output('response', sql.VarChar);
 
@@ -19,7 +19,7 @@ function taskInstanceRepository({ sql }) {
   }
 
   async function updatetask(taskId, updatedtask) {
-    const pool = await sql.connect();
+    const pool = await dataClient.getConnection();
     const request = await pool.request();
 
     request.input('task_id', sql.Int, taskId);
@@ -33,9 +33,11 @@ function taskInstanceRepository({ sql }) {
     return new Promise((resolve, reject) => {
       request.execute('SPupdateTaskInstance', (error, result) => {
         if (error !== null && error !== undefined) {
+          console.log(error);
           reject(error);
         } else {
           const res = result.output.response == null ? '[]' : result.output.response;
+          console.log(res);
           resolve(res);
         }
       });
