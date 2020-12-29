@@ -33,11 +33,9 @@ function taskInstanceRepository({ dataClient }) {
     return new Promise((resolve, reject) => {
       request.execute('SPupdateTaskInstance', (error, result) => {
         if (error !== null && error !== undefined) {
-          console.log(error);
           reject(error);
         } else {
           const res = result.output.response == null ? '[]' : result.output.response;
-          console.log(res);
           resolve(res);
         }
       });
