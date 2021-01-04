@@ -1,15 +1,13 @@
 function taskInstanceController({ taskInstanceService, httpErrors }) {
   async function getAll(req, res) {
     const tasks = await taskInstanceService.getAll();
-    return res.json(JSON.parse(tasks));
+    return res.json(tasks);
   }
 
   async function updateOne(req, res, next) {
-    const updatedtask = req.body;
-    const { id } = req.params;
-    const result = await taskInstanceService.updateOne(id, updatedtask);
+    const result = await taskInstanceService.updateOne(req.params, req.body);
     if (result) {
-      return res.json(JSON.parse(result));
+      return res.json(result);
     }
 
     return next(httpErrors.notFound('task not found'));

@@ -11,8 +11,8 @@ function taskInstanceRepository({ dataClient }) {
         if (error !== null && error !== undefined) {
           reject(error);
         } else {
-          const res = result.output.response == null ? '[]' : result.output.response;
-          resolve(res);
+          const res = result.output.response === null ? '[]' : result.output.response;
+          resolve(JSON.parse(res));
         }
       });
     });
@@ -35,8 +35,8 @@ function taskInstanceRepository({ dataClient }) {
         if (error !== null && error !== undefined) {
           reject(error);
         } else {
-          const res = result.output.response == null ? '[]' : result.output.response;
-          resolve(res);
+          const res = result.output.response === null ? '[]' : result.output.response;
+          resolve(JSON.parse(res));
         }
       });
     });

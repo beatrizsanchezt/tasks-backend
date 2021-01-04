@@ -23,9 +23,7 @@ function client(config) {
         return pool;
       }
       pool = await sql.connect(config);
-      pool.on('error', async () => {
-        await closePool();
-      });
+      pool.on('error', () => closePool());
     } catch (err) {
       pool = null;
     }
