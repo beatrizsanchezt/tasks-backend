@@ -3,8 +3,8 @@ function taskInstanceService({ taskInstanceRepository }) {
     return taskInstanceRepository.getAll();
   }
 
-  function updateOne(taskId, updatedtask) {
-    return taskInstanceRepository.updateOne(taskId, updatedtask);
+  function updateOne(taskInstanceId, updatedTask) {
+    return taskInstanceRepository.updateOne(taskInstanceId, updatedTask);
   }
   return {
     getAll,

@@ -10,6 +10,7 @@ function microservice({ apiV1Router, logger }) {
     const app = express();
 
     return new Promise((resolve) => {
+      app.use('/', express.static(`${process.cwd()}/build`));
       app.use(cors());
       app.use(bodyParser.json());
       app.use(expressWinston.logger({ winstonInstance: logger }));

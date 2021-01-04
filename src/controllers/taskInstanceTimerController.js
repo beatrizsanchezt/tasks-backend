@@ -8,8 +8,21 @@ function taskInstanceTimerController({ taskInstanceTimerService, httpErrors }) {
 
     return next(httpErrors.notFound('task not found'));
   }
+
+  async function updateOne(req, res, next) {
+    const updatedRecord = req.body;
+    const { id } = req.params;
+    const result = await taskInstanceTimerService.updateOne(id, updatedRecord);
+    if (result) {
+      return res.json(JSON.parse(result));
+    }
+
+    return next(httpErrors.notFound('task instance timer not found'));
+  }
+
   return {
     createOne,
+    updateOne,
   };
 }
 

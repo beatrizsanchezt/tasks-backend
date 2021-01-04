@@ -4,6 +4,7 @@ function taskInstanceRepository({ dataClient }) {
   async function getTasks() {
     const pool = await dataClient.getConnection();
     const request = await pool.request();
+    request.input('user_id', sql.Int, 2);
     request.output('response', sql.VarChar);
 
     return new Promise((resolve, reject) => {
@@ -18,16 +19,16 @@ function taskInstanceRepository({ dataClient }) {
     });
   }
 
-  async function updatetask(taskId, updatedtask) {
+  async function updateTask(taskInstanceId, updatedTask) {
     const pool = await dataClient.getConnection();
     const request = await pool.request();
-
-    request.input('task_id', sql.Int, taskId);
-    request.input('status', sql.VarChar(1), updatedtask.status);
-    request.input('scheduled_at', sql.DateTime, updatedtask.scheduled_at);
+    console.log(updatedTask, taskInstanceId);
+    request.input('task_instance_id', sql.Int, taskInstanceId);
+    request.input('status', sql.VarChar(1), updatedTask.status);
+    request.input('scheduled_at', sql.DateTime, updatedTask.scheduled_at);
     request.input('start_date', sql.DateTime, null);
-    request.input('end_date', sql.DateTime, updatedtask.end_date);
-    request.input('pomodoros_total', sql.Int, updatedtask.pomodoros_total);
+    request.input('end_date', sql.DateTime, updatedTask.end_date);
+    request.input('pomodoros_total', sql.Int, updatedTask.pomodoros_total);
     request.output('response', sql.VarChar);
 
     return new Promise((resolve, reject) => {
@@ -44,7 +45,7 @@ function taskInstanceRepository({ dataClient }) {
 
   return {
     getAll: getTasks,
-    updateOne: updatetask,
+    updateOne: updateTask,
   };
 }
 
