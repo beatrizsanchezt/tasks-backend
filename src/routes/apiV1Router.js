@@ -6,7 +6,7 @@ function apiV1Router({ taskInstanceController, taskInstanceTimerController }) {
     express
       .Router()
       // task instance endpoints
-      .get('/taskinstance', taskInstanceController.getAll)
+      .get('/taskinstance/:id', taskInstanceController.getAll)
       .patch('/taskinstance/:id', taskInstanceController.updateOne)
       // task instance timer endpoints
       .post('/taskinstancetimer', taskInstanceTimerController.createOne)

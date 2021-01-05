@@ -1,10 +1,10 @@
 const sql = require('mssql');
 
 function taskInstanceRepository({ dataClient }) {
-  async function getTasks() {
+  async function getTasks(userId) {
     const pool = await dataClient.getConnection();
     const request = await pool.request();
-    request.input('user_id', sql.Int, 2);
+    request.input('user_id', sql.Int, userId);
     request.output('response', sql.VarChar);
 
     return new Promise((resolve, reject) => {
@@ -22,7 +22,6 @@ function taskInstanceRepository({ dataClient }) {
   async function updateTask(taskInstanceId, updatedTask) {
     const pool = await dataClient.getConnection();
     const request = await pool.request();
-    console.log(updatedTask, taskInstanceId);
     request.input('task_instance_id', sql.Int, taskInstanceId);
     request.input('status', sql.VarChar(1), updatedTask.status);
     request.input('scheduled_at', sql.DateTime, updatedTask.scheduled_at);

@@ -1,6 +1,8 @@
 function taskInstanceController({ taskInstanceService, httpErrors }) {
   async function getAll(req, res) {
-    const tasks = await taskInstanceService.getAll();
+    const { id } = req.params;
+    console.log(req.params);
+    const tasks = await taskInstanceService.getAll(id);
     return res.json(JSON.parse(tasks));
   }
 

@@ -1,6 +1,6 @@
 function taskInstanceService({ taskInstanceRepository }) {
-  async function getAll() {
-    return taskInstanceRepository.getAll();
+  async function getAll(userId) {
+    return taskInstanceRepository.getAll(userId);
   }
 
   function updateOne(taskInstanceId, updatedTask) {

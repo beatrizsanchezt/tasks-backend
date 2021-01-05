@@ -24,7 +24,6 @@ function taskInstanceTimerRepository({ dataClient }) {
   async function updateTaskInstanceTimer(taskInstanceTimerId, updatedRecord) {
     const pool = await dataClient.getConnection();
     const request = await pool.request();
-
     request.input('task_instance_timer_id', sql.Int, taskInstanceTimerId);
     request.input('end_time', sql.DateTime, updatedRecord.end_time);
     request.input('finished', sql.Int, updatedRecord.finished);
